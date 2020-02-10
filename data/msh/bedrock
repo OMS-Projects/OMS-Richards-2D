@@ -1,0 +1,27 @@
+border bottom(t=0,5.25) {x=t; y=0; label=10;}
+border right(t=0,0.875) {x=5.25; y=t; label=10;}
+border left1(t=0,3.125) {x=0; y=t; label=10;}
+border left2(t=0,0.875) {x=0; y=3.125+t; label=10;}
+
+border topsuperior(t=0,3) {x=t; y=-(t^2)/9-t/3+4; label=11;}
+border topinferior(t=3,5.25) {x=t; y=2*(t^2)/9-7*t/3+7; label=10;}
+
+border undersuperior(t=0,3) {x=t; y=-(t^2)/9-t/3+3.125; label=10;}
+border underinferior(t=3,5.25) {x=t;  y=2*(t^2)/9-7*t/3+6.125; label=10;}
+
+int n=7;
+
+plot(bottom(4*n)+underinferior(-5*n)+undersuperior(-7*n)
+     +left1(-4*n)+right(n)+topinferior(-5*n)
+     +topsuperior(-7*n)+left2(-2*n)); 
+
+mesh Th=buildmesh(bottom(4*n)+underinferior(-5*n)+undersuperior(-7*n)
+     +left1(-4*n)+right(n)+topinferior(-5*n)
+     +topsuperior(-7*n)+left2(-2*n));
+
+plot(Th);
+
+int[int] L=[4,1];
+mesh Thnew=change(Th, region=L);
+
+savemesh(Thnew,"bedrock.msh");
